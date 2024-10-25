@@ -1,0 +1,179 @@
+/*  @author - Shiv Bhagat : https://github.com/shivxbhagat/  */
+
+html,
+body {
+	scroll-behavior: smooth;
+	color: #200800;
+	font-family: Roboto;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+section {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#input-section {
+	background-color: #f1f1f1;
+}
+
+textarea {
+	width: 85%;
+	height: 70%;
+	padding: 10px;
+	margin-bottom: 20px;
+	font-size: 1rem;
+}
+
+.header {
+	padding: 10px;
+	display: flex;
+}
+
+.header h1,
+.header i {
+	margin: 0;
+	padding: 0;
+}
+
+.header h1 {
+	margin-bottom: 20px;
+}
+
+.header i {
+	margin-left: 30px;
+	padding-top: 5px;
+	font-size: larger;
+}
+
+.header i:hover {
+	cursor: pointer;
+}
+
+.btn-group {
+	margin-bottom: 0.75rem;
+}
+
+.button {
+	text-decoration: none;
+	font-size: 0.9411764706rem;
+	color: #200800;
+	font-weight: 500;
+	appearance: none;
+	border: none;
+	border-radius: 4px;
+	padding: 1em 1.5em;
+	background-color: #f2a900;
+	display: inline-block;
+	cursor: pointer;
+	transition: all 0.15s ease-in-out;
+	border-color: #f2a900;
+	text-align: center;
+	line-height: 1.1em;
+	font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+	min-width: 60px;
+}
+
+.button--blue {
+	background-color: #385e9d;
+	color: #fff;
+	border-color: #385e9d;
+}
+
+.button:hover {
+	background-color: #ffba1c;
+}
+
+.button--blue:hover {
+	background-color: #4370bb;
+}
+
+#input-section {
+	margin-bottom: 0.75rem;
+}
+
+footer {
+	background-color: #f1f1f1;
+	color: #200800;
+	text-align: center;
+	padding: 10px;
+	bottom: 0;
+	left: 0;
+}
+
+#a-github,
+#a-email,
+#a-uofm {
+	text-decoration: none;
+	color: #200800;
+	cursor: pointer;
+	font-weight: bold;
+	text-decoration: underline;
+	transition: all 0.2s ease-in-out;
+}
+
+#a-github:hover,
+#a-email:hover,
+#a-uofm:hover {
+	text-decoration: none;
+}
+
+#a-versions {
+	text-decoration: none;
+	color: #200800;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+#output-email {
+	height: 100%;
+	width: 96%;
+	margin: 2% 4%;
+	overflow-y: scroll;
+}
+
+#generated-text-h2 {
+	margin-bottom: 0;
+	text-decoration: underline;
+}
+
+#back-to-top {
+	position: fixed;
+	bottom: 60px;
+	right: 20px;
+	background-color: #4f2c1d;
+	color: white;
+	border: none;
+	border-radius: 15%;
+	padding: 10px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+}
+
+#back-to-top i {
+	font-size: 1.4rem;
+}
+
+#back-to-top:hover {
+	background-color: #734a39;
+}
+
+#input-section,
+#input-textarea,
+footer,
+#generated-text-h2,
+.h2-below-br,
+#back-to-top,
+#info-for-copying {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

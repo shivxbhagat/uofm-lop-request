@@ -1,0 +1,77 @@
+<!-- @author - Shiv Bhagat : https://github.com/shivxbhagat/  -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>LOP Request</title>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="./img/favicon-32x32.png"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./src/style.css" />
+		<link rel="stylesheet" href="./src/output.css" />
+	</head>
+	<body>
+		<section id="input-section">
+			<div class="header">
+				<h1>Request Generator - LOP</h1>
+			</div>
+
+			<textarea
+				id="input-textarea"
+				placeholder="Copy full page from transfer credit statement and paste it here.&#10;Ctrl + A and Ctrl + C from Aurora, Ctrl + V here. Generate. &#10;:)"
+			></textarea>
+			<div class="btn-group">
+				<a href="#output-section" class="button" id="generate-button"
+					>Generate</a
+				>
+				<a href="#" id="clear-button" class="button button--blue"
+					>Clear</a
+				>
+			</div>
+		</section>
+		<section id="output-section">
+			<h2 id="generated-text-h2">Generated Text</h2>
+			<h5 id="info-for-copying">
+				(Ctrl + A and Ctrl + C, Ctrl + V in email body, Merge
+				Formatting)
+			</h5>
+			<div id="output-email"></div>
+			<a href="#input-section" id="back-to-top"
+				><i class="fa-solid fa-angle-up"></i
+			></a>
+		</section>
+		<footer class="bg-white font-roboto">
+			<div class="mx-auto max-w-screen-xl px-4 pb-5 pt-5 sm:px-6 lg:px-8">
+				<div class="mt-16 border-t border-gray-100 pt-5">
+					<p class="text-center text-5xl text-gray-500">
+						Coded By
+						<a
+							href="https://github.com/shivxbhagat"
+							target="_blank"
+							class="text-gray-700 underline"
+						>
+							Shiv Bhagat
+						</a>
+					</p>
+				</div>
+			</div>
+		</footer>
+		<script src="./src/script.js"></script>
+	</body>
+</html>
