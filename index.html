@@ -23,8 +23,10 @@
 			href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 		<link rel="stylesheet" href="./src/style.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+		<script src="https://unpkg.com/pdf-lib@1.11.0"></script>
+		<script src="https://unpkg.com/downloadjs@1.4.7"></script>
 	</head>
 	<body>
 		<section id="input-section">
@@ -42,7 +44,7 @@
 			></textarea>
 
 			<div class="btn-group">
-				<a href="#output-section" class="button" id="generate-button"
+				<a href="#input-section" class="button" id="generate-button"
 					>Generate</a
 				>
 				<a href="#" id="clear-button" class="button button--blue"
