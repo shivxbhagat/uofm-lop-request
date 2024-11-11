@@ -36,6 +36,7 @@ class Student {
 		this.program = "";
 		this.externalSchool = "";
 		this.term = "";
+		this.effectiveTerm = "";
 		this.LP = {
 			approved: [],
 			pendingApprv: [],
@@ -83,8 +84,11 @@ let student = new Student(),
 	hasStudentName = false,
 	hasProgram = false,
 	inputBanner = "",
-	effectiveTerm = "";
-inputAurora = "";
+	effectiveTerm = "",
+	eTSem = "",
+	eTYear = "",
+	externalSchool = "",
+	inputAurora = "";
 
 function resetVariables() {
 	(student = new Student()),
@@ -93,191 +97,31 @@ function resetVariables() {
 		(hasStudentNumber = false),
 		(hasStudentName = false),
 		(effectiveTerm = ""),
+		(eTSem = ""),
+		(eTYear = ""),
+		(externalSchool = ""),
 		(hasProgram = false);
+
+	document.getElementById("input-aurora").value = "";
+	document.getElementById("input-banner").value = "";
+	document.getElementById("input-term").value = "";
+	document.getElementById("input-school").value = "";
 }
 
 function generateData() {
 	resetVariables();
 	inputAurora = document.getElementById("input-aurora").value;
 	inputBanner = document.getElementById("input-banner").value;
-	effectiveTerm = "202510";
+	effectiveTerm = document.getElementById("input-term").value;
+	externalSchool = document.getElementById("input-school").value;
 
-	inputBanner = `
-   X         Statement of Transfer Credit (SWASOTC)
- 
-Clear Form
-Run Report - All Students
-Select Faculty or College: * 
-Generate Report
- 
- 
-Enter Student ID or Names
- 
-Student ID: 
-007929993
-OR
-Last Name: 
-First Name: 
- 
-007929993
-Wayngarten
-Hannah
-  Page 
-1
- of 1   Per Page 
-15
- Records Found: 1Refresh
-Select Program
-2
-Faculty of Science - B.Sc.(Hons.)
-  Page 
-1
- of 1   Per Page 
-5
- Records Found: 1Refresh
-Courses With Credit Determined
-  Page 
-1
- of 0   Per Page 
-24
- Records Found: 0Save Data Reload Data
-Courses Pending Assessment
-2
-Univ Politecnica de Valencia (ES0004) 
-202410
-ISLS 13695 INTL. SEM. LIFE SCIENCES II 
-LP PN
-SCIE 9997 24/05/24 SENT TO DEPARTMENT
-0.00
-  Page 
-1
- of 1   Per Page 
-24
- Records Found: 1Save Data Reload Data
-Courses Not Awarded Credit
-2
-Univ Politecnica de Valencia (ES0004) 
-202410
-ENG 89898 SOFT SKILLS/ ENGINEERS 
-LP PN
-ARTS 9999 NO CREDIT 123456789012345678901
-0.00
-2
-Univ Politecnica de Valencia (ES0004) 
-202410
-ISLS 89899 ONLINE RESEARCH PROJ. LIFE SCI 
-LP PN
-BIOL 9999 NO CREDIT
-0.00
-2
-Univ Politecnica de Valencia (ES0004) 
-202410
-ENG 89898 SOFT SKILLS/ ENGINEERS 
-LP PN
-ENG 9999 NO CREDIT
-0.00
-  Page 
-1
- of 1   Per Page 
-24
- Records Found: 3Save Data Reload Data
- 
-Clear Form
-`;
+	student.effectiveTerm = effectiveTerm;
 
-	inputAurora = `
-University of Manitoba - Aurora
-
-Personal Information	Tab Corner Right	Enrolment & Academic Records	Tab Corner Right	Advisor Services	Tab Corner Right	Admission Services	Tab Corner Right	Student Reports	Tab Corner Right	Student Awards and Financial Aid	Tab Corner Right
-Transparent Image
- 
-HELP | EXIT
-
-Statement of Transfer Credit
- 	
-
-Nov 08, 2024 06:19 pm
-Transparent Image
-
-Student #: 007929993
-Student Name: Hannah Wayngarten
-Effective Term: Fall 2022
-Program: Science-BSc Honours
-
-
-The University of Manitoba evaluates external courses for possible transfer credit on a course-by-course basis. Credit is determined based on review of detailed course outlines/syllabi by the applicable department or teaching unit, and is subject to final approval by the program of admission.
-
-
-Basis of Transfer Credit	U of M Transfer Credit Awarded
-Course No.	Description	Grade	Course No.	Description	Cr Hrs	R	Grade	Applied
-Courses Pending an Assessment Decision:
-ES0004 - Univ Politecnica de Valencia
-ISLS 13695	INTL. SEM. LIFE SCIENCES II	LP PN	SCIE 9997	24/05/24 SENT TO DEPARTMENT	0.0	 	 	LP IP	
-Courses Not Awarded Credit:
-ES0004 - Univ Politecnica de Valencia
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ES0032 - Univ Po de Valencia
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ARTS 9999	NO CREDIT 123456789012345678901	0.0	 	 	LP IP	
-ISLS 89899	ONLINE RESEARCH PROJ. LIFE SCI	LP PN	BIOL 9999	NO CREDIT	0.0	 	 	LP IP	
-ENG 89898	SOFT SKILLS/ ENGINEERS	LP PN	ENG 9999	NO CREDIT	0.0	 	 	LP IP	
-Where sufficient overlap in course content does not exist, courses may be assigned unspecified (general) credit (e.g. PSYC 1XXX TRANSFER 1000 LVL).
-
-
-Courses transferred from external institutions (other than Department of English courses) do not satisfy the University of Manitoba's Written English Requirement, or Engineering Written Requirement list (WE), except by individual assessment. Further information regarding individual assessment of the Written English Requirement can be obtained by contacting the Dean's Office, Faculty of Arts, 3rd Floor Fletcher Argue. See Section 2.2 General Academic Regulations and Requirements in the Undergraduate Calendar.
-
-
-For current University of Manitoba students seeking external course study on a Letter of Permission, grade indicators are:
-LP: Course has been approved for external studies on a Letter of Permission.
-LP PN: Course is pending a program decision. Approval has not been granted.
-LP DN: Course has been denied for use towards your program of study.
-
-
-The R (Repeat) column is used to indicate courses that have been assessed against the University of Manitoba's Course Repeat regulations. External transfer courses with subsequent repeats prior to Fall 2016 should have an indicator of E (exclude) on all but the most recent attempt. An active course registration effective Fall 2016, forward, will have an A (include in GPA) repeat indicator applied to all but the highest attempt. M (manual) or S (system) simply identifies how the repeat indicator was applied.
-
-
-
-Transparent Image
-
-[ Select Another Program | Select Another ID | Select Another Student from the List ]
-
-Release: 1.0
-
-© 2024 Ellucian Company L.P. and its affiliates.
-`;
+	if (!effectiveTerm) {
+		alert("Please enter effective term");
+		location.reload();
+		return;
+	}
 
 	if (
 		inputAurora === "" ||
@@ -560,7 +404,7 @@ Release: 1.0
 	generatePDF(student);
 
 	// Clear after 1.5 minutes
-	//setTimeout(resetVariables, 1.5 * 60 * 1000);
+	setTimeout(resetVariables, 1.5 * 60 * 1000);
 }
 
 async function generatePDF(student) {
@@ -620,13 +464,17 @@ async function generatePDF(student) {
 		color: rgb(0, 0, 0),
 	});
 
+	if (externalSchool == "") {
+		externalSchool = student.LP.pendingApprv[0].schoolName;
+	}
+
 	//student details
 	const studentDetails = [
 		["Student Name:", student.name],
 		["Student Number:", student.studentNumber],
 		["Program:", student.program],
-		["External School:", student.LP.pendingApprv[0].schoolName],
-		["Effective Term:", ""],
+		["External School:", externalSchool],
+		["Effective Term:", student.effectiveTerm],
 	];
 
 	console.log(studentDetails);
@@ -653,9 +501,19 @@ async function generatePDF(student) {
 		y -= 15;
 	}
 
+	eTYear = student.effectiveTerm.slice(0, 4);
+	eTSem = student.effectiveTerm.slice(4);
+
+	if (eTSem == "10") {
+		eTSem = "Winter";
+	} else if (eTSem == "50") {
+		eTSem = "Summer";
+	} else if (eTSem == "90") {
+		eTSem = "Fall";
+	}
+
 	//some comment text
-	let commentText =
-		"Please note that the following courses have been approved for transfer credit by the Faculty of Science. Please review \nthe courses and approve them for the effective term.";
+	let commentText = `The above student has requested approval to take the following courses on a Letter of Permission at the institution noted below during the ${eTSem} \n${eTYear} term. Please signify approval of each course with a selection under approve column. Those for which permission is denied should be signified \nwith a selection under the deny column.`;
 	y -= 5;
 
 	//prevent the overflow of commentText
@@ -932,261 +790,6 @@ async function generatePDF(student) {
 		page = result[1];
 	}
 
-	// if (student.LP.pendingApprv.length > 0) {
-	// 	let heading = "Courses Pending Program Approval";
-
-	// 	// Draw heading text
-	// 	page.drawText(heading, {
-	// 		x: textMargin + 1,
-	// 		y: currentY,
-	// 		size: fontSize,
-	// 		font: fontBold,
-	// 		color: rgb(0, 0, 0),
-	// 	});
-
-	// 	const textWidth = fontBold.widthOfTextAtSize(heading, fontSize);
-
-	// 	page.drawLine({
-	// 		start: { x: textMargin + 1, y: currentY - 2 }, // Adjust Y for the underline's position
-	// 		end: { x: textMargin + 1 + textWidth, y: currentY - 2 },
-	// 		color: rgb(0, 0, 0),
-	// 		thickness: 1, // Thickness of the underline
-	// 	});
-	// 	currentY -= 15;
-	// }
-
-	// let str = "";
-
-	// for (let i = 0; i < student.LP.pendingApprv.length; i++) {
-	// 	let course = student.LP.pendingApprv[i];
-	// 	if (!str.includes(course.schoolCode)) {
-	// 		let extSC = course.schoolCode;
-	// 		let extSN = course.schoolName;
-	// 		str = extSC + " - " + extSN;
-	// 		console.log(str);
-	// 		page.drawText(str, {
-	// 			x: textMargin + tableBody.columnWidths[0] + 1,
-	// 			y: currentY,
-	// 			size: fontSize,
-	// 			font: font,
-	// 			color: rgb(0, 0, 0),
-	// 		});
-	// 		currentY -= tableMain.rowHeight + 5;
-	// 	}
-
-	// 	let maxY = currentY;
-	// 	let startY = currentY;
-
-	// 	let ext1 = course.term;
-	// 	let ext21 = course.exCourseCode;
-	// 	let ext22 = course.exCourseTitle;
-	// 	let ext3 = course.exGrade;
-	// 	let um11 = course.umCourseCode;
-	// 	let um12 = course.umCourseTitle;
-	// 	let um2 = course.umCredits;
-	// 	let um3 = course.umGrade;
-
-	// 	page.drawText(ext1, {
-	// 		x: textMargin + 1,
-	// 		y: currentY,
-	// 		size: fontSize,
-	// 		font: font,
-	// 		color: rgb(0, 0, 0),
-	// 	});
-
-	// 	let textWidth = font.widthOfTextAtSize(ext21, fontSize);
-
-	// 	if (textWidth > ext21Max) {
-	// 		let lines = ext21.split(" ");
-	// 		for (let j = 0; j < lines.length; j++) {
-	// 			page.drawText(lines[j], {
-	// 				x: textMargin + tableBody.columnWidths[0] + 1,
-	// 				y: currentY,
-	// 				size: fontSize,
-	// 				font: font,
-	// 				color: rgb(0, 0, 0),
-	// 			});
-	// 			currentY -= tableMain.rowHeight;
-	// 		}
-	// 		maxY = currentY;
-	// 		currentY = startY;
-	// 	} else {
-	// 		page.drawText(ext21, {
-	// 			x: textMargin + tableBody.columnWidths[0] + 1,
-	// 			y: currentY,
-	// 			size: fontSize,
-	// 			font: font,
-	// 			color: rgb(0, 0, 0),
-	// 		});
-	// 	}
-
-	// 	textWidth = font.widthOfTextAtSize(ext22, fontSize);
-
-	// 	if (textWidth > ext22Max) {
-	// 		ext22 = ext22.substring(0, 25);
-	// 	}
-
-	// 	page.drawText(ext22, {
-	// 		x:
-	// 			textMargin +
-	// 			tableBody.columnWidths[0] +
-	// 			tableBody.columnWidths[1] +
-	// 			1,
-	// 		y: currentY,
-	// 		size: fontSize,
-	// 		font: font,
-	// 		color: rgb(0, 0, 0),
-	// 	});
-
-	// 	page.drawText(ext3, {
-	// 		x:
-	// 			textMargin +
-	// 			tableBody.columnWidths[0] +
-	// 			tableBody.columnWidths[1] +
-	// 			tableBody.columnWidths[2] +
-	// 			1,
-	// 		y: currentY,
-	// 		size: fontSize,
-	// 		font: font,
-	// 		color: rgb(0, 0, 0),
-	// 	});
-
-	// 	textWidth = font.widthOfTextAtSize(um11, fontSize);
-
-	// 	if (textWidth > um11Max) {
-	// 		let lines = um11.split(" ");
-	// 		for (let j = 0; j < lines.length; j++) {
-	// 			page.drawText(lines[j], {
-	// 				x:
-	// 					textMargin +
-	// 					tableBody.columnWidths[0] +
-	// 					tableBody.columnWidths[1] +
-	// 					tableBody.columnWidths[2] +
-	// 					tableBody.columnWidths[3] +
-	// 					+1,
-	// 				y: currentY,
-	// 				size: fontSize,
-	// 				font: font,
-	// 				color: rgb(0, 0, 0),
-	// 			});
-	// 			currentY -= tableMain.rowHeight;
-	// 		}
-	// 		maxY = currentY;
-	// 		currentY = startY;
-	// 	} else {
-	// 		page.drawText(um11, {
-	// 			x:
-	// 				textMargin +
-	// 				tableBody.columnWidths[0] +
-	// 				tableBody.columnWidths[1] +
-	// 				tableBody.columnWidths[2] +
-	// 				tableBody.columnWidths[3] +
-	// 				+1,
-	// 			y: currentY,
-	// 			size: fontSize,
-	// 			font: font,
-	// 			color: rgb(0, 0, 0),
-	// 		});
-	// 	}
-
-	// 	textWidth = font.widthOfTextAtSize(um12, fontSize);
-
-	// 	if (textWidth > um12Max) {
-	// 		um12 = um12.substring(0, 25);
-	// 	}
-
-	// 	page.drawText(um12, {
-	// 		x:
-	// 			textMargin +
-	// 			tableBody.columnWidths[0] +
-	// 			tableBody.columnWidths[1] +
-	// 			tableBody.columnWidths[2] +
-	// 			tableBody.columnWidths[3] +
-	// 			tableBody.columnWidths[4] +
-	// 			+1,
-	// 		y: currentY,
-	// 		size: fontSize,
-	// 		font: font,
-	// 		color: rgb(0, 0, 0),
-	// 	});
-
-	// 	page.drawText(um2, {
-	// 		x:
-	// 			textMargin +
-	// 			tableBody.columnWidths[0] +
-	// 			tableBody.columnWidths[1] +
-	// 			tableBody.columnWidths[2] +
-	// 			tableBody.columnWidths[3] +
-	// 			tableBody.columnWidths[4] +
-	// 			tableBody.columnWidths[5] +
-	// 			+1,
-	// 		y: currentY,
-	// 		size: fontSize,
-	// 		font: font,
-	// 		color: rgb(0, 0, 0),
-	// 	});
-
-	// 	page.drawText(um3, {
-	// 		x:
-	// 			textMargin +
-	// 			tableBody.columnWidths[0] +
-	// 			tableBody.columnWidths[1] +
-	// 			tableBody.columnWidths[2] +
-	// 			tableBody.columnWidths[3] +
-	// 			tableBody.columnWidths[4] +
-	// 			tableBody.columnWidths[5] +
-	// 			tableBody.columnWidths[6] +
-	// 			+1,
-	// 		y: currentY,
-	// 		size: fontSize,
-	// 		font: font,
-	// 		color: rgb(0, 0, 0),
-	// 	});
-
-	// 	// Create a radio group
-	// 	const radioGroup = form.createRadioGroup(`${currentY}`);
-
-	// 	// Create the first radio button (Approve)
-	// 	radioGroup.addOptionToPage("Approve", page, {
-	// 		x:
-	// 			textMargin +
-	// 			tableBody.columnWidths[0] +
-	// 			tableBody.columnWidths[1] +
-	// 			tableBody.columnWidths[2] +
-	// 			tableBody.columnWidths[3] +
-	// 			tableBody.columnWidths[4] +
-	// 			tableBody.columnWidths[5] +
-	// 			tableBody.columnWidths[6] +
-	// 			tableBody.columnWidths[7] +
-	// 			+5,
-	// 		y: currentY - 2,
-	// 		width: 10,
-	// 		height: 10,
-	// 	});
-
-	// 	// Create the second radio button (Deny)
-	// 	radioGroup.addOptionToPage("Deny", page, {
-	// 		x:
-	// 			textMargin +
-	// 			tableBody.columnWidths[0] +
-	// 			tableBody.columnWidths[1] +
-	// 			tableBody.columnWidths[2] +
-	// 			tableBody.columnWidths[3] +
-	// 			tableBody.columnWidths[4] +
-	// 			tableBody.columnWidths[5] +
-	// 			tableBody.columnWidths[6] +
-	// 			tableBody.columnWidths[7] +
-	// 			tableBody.columnWidths[8] +
-	// 			+5,
-	// 		y: currentY - 2,
-	// 		width: 10,
-	// 		height: 10,
-	// 	});
-
-	// 	currentY = maxY;
-	// 	currentY -= tableMain.rowHeight;
-	// }
-
 	//draw dotted line
 	page.drawLine({
 		start: { x: textMargin, y: currentY },
@@ -1194,80 +797,6 @@ async function generatePDF(student) {
 		color: rgb(0, 0, 0),
 		dashArray: [5, 5],
 	});
-
-	// currentY -= 10;
-
-	// if (currentY <= margin + 15 * 3 + 10) {
-	// 	page = pdfDoc.addPage([612, 792]);
-	// 	currentY = page.getHeight() - margin;
-	// }
-
-	// page.drawText("Comments:", {
-	// 	x: textMargin,
-	// 	y: currentY,
-	// 	size: fontSize,
-	// 	font: fontBold,
-	// 	color: rgb(0, 0, 0),
-	// });
-
-	// currentY -= 15 + 40;
-
-	// const textField = form.createTextField("inputField");
-	// // textField.setFontSize(fontSize);
-	// textField.addToPage(page, {
-	// 	x: textMargin, // X position of the field
-	// 	y: currentY, // Y position of the field
-	// 	width: page.getWidth() - 2 * textMargin, // Width of the input field
-	// 	height: 45, // Height of the input field
-	// });
-	// textField.setFont(font); // Set font for the text field
-	// textField.setFontSize(fontSize);
-
-	// currentY -= 45 + 5;
-
-	// // Add fillable text fields for comments
-	// const commentField1 = form.createTextField("comment1");
-	// commentField1.setText("");
-	// commentField1.addToPage(page, {
-	// 	x: textMargin,
-	// 	y: currentY,
-	// 	width: page.getWidth() - 2 * textMargin,
-	// 	height: 15,
-	// 	font: font,
-	// 	fontSize: fontSize,
-	// 	borderColor: rgb(0, 0, 0),
-	// 	borderWidth: 1,
-	// });
-
-	// currentY -= 15;
-
-	// const commentField2 = form.createTextField("comment2");
-	// commentField2.setText("");
-	// commentField2.addToPage(page, {
-	// 	x: textMargin,
-	// 	y: currentY,
-	// 	width: page.getWidth() - 2 * textMargin,
-	// 	height: 15,
-	// 	font: font,
-	// 	fontSize: fontSize,
-	// 	borderColor: rgb(0, 0, 0),
-	// 	borderWidth: 1,
-	// });
-
-	// currentY -= 15;
-
-	// const commentField3 = form.createTextField("comment3");
-	// commentField3.setText("");
-	// commentField3.addToPage(page, {
-	// 	x: textMargin,
-	// 	y: currentY,
-	// 	width: page.getWidth() - 2 * textMargin,
-	// 	height: 15,
-	// 	font: font,
-	// 	fontSize: fontSize,
-	// 	borderColor: rgb(0, 0, 0),
-	// 	borderWidth: 1,
-	// });
 
 	//download the pdf
 	const pdfBytes = await pdfDoc.save();
