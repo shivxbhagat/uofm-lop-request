@@ -76,6 +76,8 @@ document.getElementById("clear-button").addEventListener("click", clearData);
 function clearData() {
 	document.getElementById("input-aurora").value = "";
 	document.getElementById("input-banner").value = "";
+	document.getElementById("input-term").value = "";
+	document.getElementById("input-school").value = "";
 	resetVariables();
 }
 
@@ -101,11 +103,6 @@ function resetVariables() {
 		(eTYear = ""),
 		(externalSchool = ""),
 		(hasProgram = false);
-
-	document.getElementById("input-aurora").value = "";
-	document.getElementById("input-banner").value = "";
-	document.getElementById("input-term").value = "";
-	document.getElementById("input-school").value = "";
 }
 
 function generateData() {
@@ -115,13 +112,12 @@ function generateData() {
 	effectiveTerm = document.getElementById("input-term").value;
 	externalSchool = document.getElementById("input-school").value;
 
-	student.effectiveTerm = effectiveTerm;
-
-	if (!effectiveTerm) {
+	if (!effectiveTerm || effectiveTerm.length != 6 || effectiveTerm == "") {
 		alert("Please enter effective term");
 		location.reload();
 		return;
 	}
+	student.effectiveTerm = effectiveTerm;
 
 	if (
 		inputAurora === "" ||
@@ -175,14 +171,17 @@ function generateData() {
 
 	let extSchoolName = "",
 		extSchoolCode = "",
+		previous = "",
 		line = [];
 
 	for (let i = 0; i < coursesData.length; i++) {
+		console.log(coursesData[i]);
 		if (
 			coursesData[i] != undefined &&
 			!coursesData[i].includes("Attributes:") &&
 			!coursesData[i].includes("Comments:") &&
-			coursesData[i] != ""
+			coursesData[i] != "" &&
+			!coursesData[i].includes("-- AND --")
 		) {
 			if (
 				coursesData[i].includes(" - ") &&
@@ -202,6 +201,8 @@ function generateData() {
 				course.umCourseTitle = line[4];
 				course.umCredits = line[5];
 				course.umGrade = line[8];
+
+				previous = course;
 
 				// Add course to student
 				if (course.exGrade == "LP") {
@@ -229,6 +230,44 @@ function generateData() {
 				} else if (course.exGrade == "LP SS") {
 					student.pushSS(course);
 				}
+			}
+		} else if (coursesData[i].includes("-- AND --")) {
+			line = coursesData[i + 1].split("\t");
+			let course = new CourseEquivalency();
+			course.schoolCode = extSchoolCode;
+			course.schoolName = extSchoolName;
+			course.exCourseCode = previous.exCourseCode;
+			course.exCourseTitle = previous.exCourseTitle;
+			course.exGrade = previous.exGrade;
+			course.umCourseCode = line[0];
+			course.umCourseTitle = line[1];
+			course.umCredits = line[2];
+			course.umGrade = line[3];
+
+			if (course.exGrade == "LP") {
+				if (
+					course.umCourseCode.includes("9996") ||
+					course.umCourseCode.includes("9997") ||
+					course.umCourseCode.includes("9993")
+				) {
+					student.pushPendingDecision(course);
+				} else {
+					student.pushApproved(course);
+				}
+			} else if (course.exGrade == "LP PN") {
+				if (
+					course.umCourseCode.includes("9996") ||
+					course.umCourseCode.includes("9997") ||
+					course.umCourseCode.includes("9993")
+				) {
+					student.pushPendingDecision(course);
+				} else {
+					student.pushPendingApprv(course);
+				}
+			} else if (course.exGrade == "LP DN") {
+				student.pushDenied(course);
+			} else if (course.exGrade == "LP SS") {
+				student.pushSS(course);
 			}
 		} else if (
 			coursesData[i].includes("Where sufficient") ||
@@ -404,7 +443,7 @@ function generateData() {
 	generatePDF(student);
 
 	// Clear after 1.5 minutes
-	setTimeout(resetVariables, 1.5 * 60 * 1000);
+	setTimeout(clearData, 1.5 * 60 * 1000);
 }
 
 async function generatePDF(student) {
@@ -464,8 +503,15 @@ async function generatePDF(student) {
 		color: rgb(0, 0, 0),
 	});
 
-	if (externalSchool == "") {
+	if (
+		student.LP.pendingApprv.length > 0 &&
+		(externalSchool == "" || externalSchool == undefined)
+	) {
 		externalSchool = student.LP.pendingApprv[0].schoolName;
+	} else {
+		alert("No Pending Approval Courses Found");
+		clearData();
+		location.reload();
 	}
 
 	//student details
