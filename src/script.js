@@ -175,7 +175,6 @@ function generateData() {
 		line = [];
 
 	for (let i = 0; i < coursesData.length; i++) {
-		console.log(coursesData[i]);
 		if (
 			coursesData[i] != undefined &&
 			!coursesData[i].includes("Attributes:") &&
@@ -242,7 +241,7 @@ function generateData() {
 			course.umCourseCode = line[0];
 			course.umCourseTitle = line[1];
 			course.umCredits = line[2];
-			course.umGrade = line[3];
+			course.umGrade = line[5];
 
 			if (course.exGrade == "LP") {
 				if (
@@ -454,8 +453,6 @@ async function generatePDF(student) {
 
 	date = mm + " " + dd + ", " + yyyy;
 
-	console.log(date);
-
 	const { PDFDocument, rgb } = PDFLib;
 
 	const pdfDoc = await PDFDocument.create();
@@ -522,8 +519,6 @@ async function generatePDF(student) {
 		["External School:", externalSchool],
 		["Effective Term:", student.effectiveTerm],
 	];
-
-	console.log(studentDetails);
 
 	let y = page.getHeight() - margin - 180;
 
@@ -921,7 +916,6 @@ function drawBody(
 			let extSC = course.schoolCode;
 			let extSN = course.schoolName;
 			str = extSC + " - " + extSN;
-			console.log(str);
 			page.drawText(str, {
 				x: textMargin + tableBody.columnWidths[0] + 1,
 				y: currentY,
