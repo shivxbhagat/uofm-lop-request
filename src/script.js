@@ -1274,7 +1274,7 @@ function drawBody(
 					tableBody.columnWidths[7] +
 					+5,
 				y: currentY - 2,
-				width: 55,
+				width: 50,
 				height: tableBody.rowHeight,
 			});
 		}
