@@ -574,7 +574,7 @@ async function generatePDF(student) {
 	}
 
 	//some comment text
-	let commentText = `The above student has requested approval to take the following course(s) on a Letter of Permission at the institution noted during the ${eTSem} ${eTYear} \nterm. Please use the drop-down option under the grade column to approve or deny each course using the indicators listed below:`;
+	let commentText = `The above student has requested approval to take the following course(s) on a Letter of Permission at the institution noted during the ${eTSem} ${eTYear} \nterm. Please use the drop-down option under the decision column to approve or deny each course using the indicators listed below:`;
 	y -= 5;
 
 	//prevent the overflow of commentText
