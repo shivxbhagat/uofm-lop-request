@@ -567,6 +567,10 @@ async function generatePDF(student) {
 		eTSem = "Summer";
 	} else if (eTSem == "90") {
 		eTSem = "Fall";
+	} else {
+		alert("Invalid Term");
+		clearData();
+		location.reload();
 	}
 
 	//some comment text
