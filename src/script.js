@@ -966,12 +966,12 @@ async function generatePDF(student) {
 		borderColor: rgb(1, 1, 1),
 	});
 
-	currentY -= 30;
-
 	//check for remaining space
 	if (currentY <= margin + fontSize * 2 + 5) {
 		page = pdfDoc.addPage([612, 792]);
 		currentY = page.getHeight() - margin;
+	} else {
+		currentY -= 30;
 	}
 
 	const commentTextRef =
