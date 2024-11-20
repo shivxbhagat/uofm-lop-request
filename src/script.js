@@ -477,21 +477,33 @@ async function generatePDF(student) {
 	const logoWidth = 100;
 	const logoHeight = 50;
 	page.drawImage(logoImage, {
-		x: margin + 50,
+		x: margin + 40,
 		y: page.getHeight() - logoHeight - margin - 10,
 		width: logoWidth,
 		height: logoHeight,
 	});
 
-	// Draw text next to the logo
-	const text = "REQUEST FOR LOP APPROVAL";
-	page.drawText(text, {
-		x: margin + logoWidth + 50 + 10 + 40 - 10,
-		y: page.getHeight() - logoHeight - margin + 15 - 10,
+	const headingText = "Request for Letter of Permission Faculty Approval";
+	//draw heading text below logo
+	page.drawText(headingText, {
+		//put x in the center
+		x:
+			page.getWidth() / 2 -
+			font.widthOfTextAtSize(headingText, 20) / 2 +
+			40,
+		y: page.getHeight() - logoHeight - margin - 30,
 		size: 15,
 		font: fontBold,
 		color: rgb(32 / 255, 8 / 255, 0 / 255),
 	});
+
+	// page.drawText(text, {
+	// 	x: margin + logoWidth + 50 + 10 + 40 - 10,
+	// 	y: page.getHeight() - logoHeight - margin + 15 - 10,
+	// 	size: 15,
+	// 	font: fontBold,
+	// 	color: rgb(32 / 255, 8 / 255, 0 / 255),
+	// });
 
 	//date
 
@@ -558,7 +570,7 @@ async function generatePDF(student) {
 	}
 
 	//some comment text
-	let commentText = `The above student has requested approval to take the following courses on a Letter of Permission at the institution noted above during the ${eTSem} \n${eTYear} term. Please signify approval of each course with a selection under approve column. Those for which permission is denied should be signified \nwith a selection under the deny column.`;
+	let commentText = `The above student has requested approval to take the following course(s) on a Letter of Permission at the institution noted during the ${eTSem} ${eTYear} \nterm. Please use the drop-down option under the grade column to approve or deny each course using the indicators listed below:`;
 	y -= 5;
 
 	//prevent the overflow of commentText
@@ -571,8 +583,54 @@ async function generatePDF(student) {
 		lineHeight: 12,
 	});
 
-	// Table configuration
+	let indicators = [
+		"LP PN = Pending Approval",
+		"LP = Approved",
+		"LP DN = Denied",
+		"LP SS = Approved Courses External to Current Program of Study",
+	];
+
+	//draw indicators
 	y -= 40;
+	for (let i = 0; i < indicators.length; i++) {
+		page.drawText(indicators[i], {
+			x: textMargin,
+			y: y,
+			size: fontSize,
+			font: fontBold,
+			color: rgb(0, 0, 0),
+		});
+
+		y -= 15;
+	}
+
+	let note = {
+		Note: "On occasion, students may submit more than one application for the same Institution and Term. In cases where Approved (LP) /Denied \n(LP DN) decisions have already been made, the Approval column below will reflect those decisions.",
+	};
+
+	page.drawText("Note: ", {
+		x: textMargin,
+		y: y,
+		size: fontSize,
+		font: fontBold,
+		color: rgb(0, 0, 0),
+		lineHeight: 12,
+	});
+
+	//note text in the same line
+	page.drawText(note.Note, {
+		//use x as size of "Note: " to align the text
+		x: textMargin + font.widthOfTextAtSize("Note: ", fontSize) + 5,
+		y: y,
+		size: fontSize,
+		font: font,
+		color: rgb(0, 0, 0),
+		lineHeight: 12,
+	});
+
+	y -= 40;
+
+	// Table configuration
 	const externalCol = (page.getWidth() - 2 * textMargin) / 2 - 30;
 	const umCol = (page.getWidth() - 2 * textMargin) / 2 + 30;
 	const tableRow = 11;
@@ -624,14 +682,13 @@ async function generatePDF(student) {
 		y: currentY, // Starting Y position
 		rowHeight: tableRow,
 		columnWidths: [
-			externalCol * 0.15,
-			externalCol * 0.72,
-			externalCol * 0.13,
-			umCol * 0.65,
-			umCol * 0.05,
-			umCol * 0.1,
-			umCol * 0.1,
-			umCol * 0.1,
+			externalCol * 0.15, //term
+			externalCol * 0.72, //External Course
+			externalCol * 0.13, //External Grade
+			umCol * 0.65, //UM Course
+			umCol * 0.05, //UM Cr
+			umCol * 0.1, //UM Grade
+			umCol * 0.2, //Decision
 		], // Width of each column
 		headers: [
 			"Term",
@@ -640,8 +697,7 @@ async function generatePDF(student) {
 			"UM Course",
 			"Cr",
 			"Grade",
-			"Aprv",
-			"Deny",
+			"Decision",
 		],
 	};
 	tableMain.headers.forEach((header, index) => {
@@ -702,8 +758,7 @@ async function generatePDF(student) {
 			umCol * 0.65 * 0.8, //5
 			umCol * 0.05, //6
 			umCol * 0.1, //7
-			umCol * 0.1, //8
-			umCol * 0.1, //9
+			umCol * 0.2, //8
 		],
 	};
 
@@ -843,6 +898,90 @@ async function generatePDF(student) {
 		dashArray: [5, 5],
 	});
 
+	currentY -= 40;
+
+	//evaluations and comments
+	//check for remaining space
+	if (currentY <= margin + fontSize * 3) {
+		page = pdfDoc.addPage([612, 792]);
+		currentY = page.getHeight() - margin;
+	}
+
+	page.drawText("Evaluation Comments:", {
+		x: textMargin,
+		y: currentY,
+		size: fontSize,
+		font: font,
+		color: rgb(0, 0, 0),
+	});
+
+	currentY -= 15;
+
+	//draw input box
+	const inputWidth = page.getWidth() - 2 * textMargin;
+	const inputHeight = fontSize;
+
+	//draw input box
+	const evalsInput = form.createTextField("comments");
+	evalsInput.setText("");
+	evalsInput.addToPage(page, {
+		x: textMargin,
+		y: currentY - 2,
+		width: inputWidth,
+		height: inputHeight + 4,
+		borderColor: rgb(1, 1, 1),
+	});
+
+	currentY -= 20;
+
+	//faculty and comments
+	//check for remaining space
+	if (currentY <= margin + fontSize * 3) {
+		page = pdfDoc.addPage([612, 792]);
+		currentY = page.getHeight() - margin;
+	}
+
+	page.drawText("Faculty Comments:", {
+		x: textMargin,
+		y: currentY,
+		size: fontSize,
+		font: font,
+		color: rgb(0, 0, 0),
+	});
+
+	currentY -= 15;
+
+	//draw input box
+	const facultyInput = form.createTextField("facultyComments");
+	facultyInput.setText("");
+	facultyInput.addToPage(page, {
+		x: textMargin,
+		y: currentY - 2,
+		width: inputWidth,
+		height: inputHeight + 4,
+		borderColor: rgb(1, 1, 1),
+	});
+
+	currentY -= 30;
+
+	//check for remaining space
+	if (currentY <= margin + fontSize * 3) {
+		page = pdfDoc.addPage([612, 792]);
+		currentY = page.getHeight() - margin;
+	}
+
+	const commentTextRef =
+		"Comments included in the fields above are for internal reference only and are not communicated by the Undergraduate Evaluations office \nto students as part of the Letter of Permission process.";
+
+	page.drawText(commentTextRef, {
+		x: textMargin,
+		y: currentY,
+		size: fontSize,
+		font: fontBold,
+		color: rgb(0, 0, 0),
+		lineHeight: 12,
+	});
+
 	//download the pdf
 	const pdfBytes = await pdfDoc.save();
 
@@ -868,7 +1007,7 @@ function drawBody(
 	font,
 	fontBold,
 	fontSize,
-	drawRadio
+	drawDropdown
 ) {
 	let ext1Max = externalCol * 0.15 - 1;
 	let ext21Max = externalCol * 0.72 * 0.2 - 1;
@@ -916,6 +1055,8 @@ function drawBody(
 			countPage++;
 			group = `${countPage}-${currentY}-`;
 		}
+
+		//schoolCode - schoolName
 		if (!str.includes(course.schoolCode)) {
 			let extSC = course.schoolCode;
 			let extSN = course.schoolName;
@@ -942,6 +1083,7 @@ function drawBody(
 		let um2 = course.umCredits;
 		let um3 = course.umGrade;
 
+		//term
 		page.drawText(ext1, {
 			x: textMargin + 1,
 			y: currentY,
@@ -952,6 +1094,7 @@ function drawBody(
 
 		let textWidth = font.widthOfTextAtSize(ext21, fontSize);
 
+		//ext course code
 		if (textWidth > ext21Max) {
 			let lines = ext21.split(" ");
 			for (let j = 0; j < lines.length; j++) {
@@ -976,6 +1119,7 @@ function drawBody(
 			});
 		}
 
+		//ext course title
 		textWidth = font.widthOfTextAtSize(ext22, fontSize);
 
 		if (textWidth > ext22Max) {
@@ -994,19 +1138,21 @@ function drawBody(
 			color: rgb(0, 0, 0),
 		});
 
+		//ext grade
 		page.drawText(ext3, {
 			x:
 				textMargin +
 				tableBody.columnWidths[0] +
 				tableBody.columnWidths[1] +
 				tableBody.columnWidths[2] +
-				1,
+				3,
 			y: currentY,
 			size: fontSize,
 			font: font,
 			color: rgb(0, 0, 0),
 		});
 
+		//um course code
 		textWidth = font.widthOfTextAtSize(um11, fontSize);
 
 		if (textWidth > um11Max) {
@@ -1045,6 +1191,7 @@ function drawBody(
 			});
 		}
 
+		//um course title
 		textWidth = font.widthOfTextAtSize(um12, fontSize);
 
 		if (textWidth > um12Max) {
@@ -1066,6 +1213,7 @@ function drawBody(
 			color: rgb(0, 0, 0),
 		});
 
+		//um credits
 		page.drawText(um2, {
 			x:
 				textMargin +
@@ -1082,30 +1230,9 @@ function drawBody(
 			color: rgb(0, 0, 0),
 		});
 
-		page.drawText(um3, {
-			x:
-				textMargin +
-				tableBody.columnWidths[0] +
-				tableBody.columnWidths[1] +
-				tableBody.columnWidths[2] +
-				tableBody.columnWidths[3] +
-				tableBody.columnWidths[4] +
-				tableBody.columnWidths[5] +
-				tableBody.columnWidths[6] +
-				+1,
-			y: currentY,
-			size: fontSize,
-			font: font,
-			color: rgb(0, 0, 0),
-		});
-
-		if (drawRadio) {
-			// Create a radio group
-
-			let radioGroup = form.createRadioGroup(`${group}${currentY}`);
-
-			// Create the first radio button (Approve)
-			radioGroup.addOptionToPage("Approve", page, {
+		//um grade - if not LP PN
+		if (!drawDropdown) {
+			page.drawText(um3, {
 				x:
 					textMargin +
 					tableBody.columnWidths[0] +
@@ -1115,56 +1242,61 @@ function drawBody(
 					tableBody.columnWidths[4] +
 					tableBody.columnWidths[5] +
 					tableBody.columnWidths[6] +
-					tableBody.columnWidths[7] +
-					+5,
-				y: currentY - 2,
-				width: 10,
-				height: 10,
+					+1,
+				y: currentY,
+				size: fontSize,
+				font: font,
+				color: rgb(0, 0, 0),
 			});
-
-			// Create the second radio button (Deny)
-			radioGroup.addOptionToPage("Deny", page, {
-				x:
-					textMargin +
-					tableBody.columnWidths[0] +
-					tableBody.columnWidths[1] +
-					tableBody.columnWidths[2] +
-					tableBody.columnWidths[3] +
-					tableBody.columnWidths[4] +
-					tableBody.columnWidths[5] +
-					tableBody.columnWidths[6] +
-					tableBody.columnWidths[7] +
-					tableBody.columnWidths[8] +
-					+5,
-				y: currentY - 2,
-				width: 10,
-				height: 10,
-			});
-
-			// dropdown !
-			// 	const dropdown = form.createDropdown(`deajbizbv0-${currentY}`);
-			// 	dropdown.addOptions(["Approve", "Deny", "Pending"]); // Add dropdown options
-			// 	dropdown.select("Approve"); // Set default selected option
-
-			// 	// Add the dropdown to the page
-			// 	dropdown.addToPage(page, {
-			// 		x:
-			// 			textMargin +
-			// 			tableBody.columnWidths[0] +
-			// 			tableBody.columnWidths[1] +
-			// 			tableBody.columnWidths[2] +
-			// 			tableBody.columnWidths[3] +
-			// 			tableBody.columnWidths[4] +
-			// 			tableBody.columnWidths[5] +
-			// 			tableBody.columnWidths[6] +
-			// 			tableBody.columnWidths[7] +
-			// 			+5,
-			// 		y: currentY - 2,
-			// 		width: 70,
-			// 		height: 10,
-			// 	});
-			// }
 		}
+
+		//decision - if LP PN
+		if (drawDropdown) {
+			// dropdown !
+			const dropdown = form.createDropdown(`${group}${currentY}`);
+			dropdown.addOptions([" ", "LP PN", "LP", "LP DN", "LP SS"]); // Add dropdown options
+			dropdown.select(" "); // Set default selected option
+			// Add the dropdown to the page
+			dropdown.addToPage(page, {
+				x:
+					textMargin +
+					tableBody.columnWidths[0] +
+					tableBody.columnWidths[1] +
+					tableBody.columnWidths[2] +
+					tableBody.columnWidths[3] +
+					tableBody.columnWidths[4] +
+					tableBody.columnWidths[5] +
+					tableBody.columnWidths[6] +
+					tableBody.columnWidths[7] +
+					+5,
+				y: currentY - 2,
+				width: 55,
+				height: tableBody.rowHeight,
+			});
+		}
+
+		//um course comments
+		if (course.umCourseComments != "") {
+			currentY = maxY;
+
+			page.drawText(course.umCourseComments, {
+				x:
+					textMargin +
+					tableBody.columnWidths[0] +
+					tableBody.columnWidths[1] +
+					tableBody.columnWidths[2] +
+					tableBody.columnWidths[3] +
+					tableBody.columnWidths[4] +
+					+1,
+				y: currentY,
+				size: fontSize,
+				font: font,
+				color: rgb(0, 0, 0),
+			});
+
+			maxY = currentY - tableMain.rowHeight;
+		}
+
 		currentY = maxY;
 		currentY -= tableMain.rowHeight;
 	}
