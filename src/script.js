@@ -26,6 +26,7 @@ class CourseEquivalency {
 		this.umCourseTitle = "";
 		this.umCredits = "";
 		this.umGrade = "";
+		this.umCourseComments = "";
 	}
 }
 
@@ -268,6 +269,9 @@ function generateData() {
 			} else if (course.exGrade == "LP SS") {
 				student.pushSS(course);
 			}
+		} else if (coursesData[i].includes("Comments:")) {
+			line = coursesData[i].split("\t");
+			previous.umCourseComments = line[1];
 		} else if (
 			coursesData[i].includes("Where sufficient") ||
 			coursesData[i].includes("Courses transformed")
@@ -1136,6 +1140,30 @@ function drawBody(
 				width: 10,
 				height: 10,
 			});
+
+			// dropdown !
+			// 	const dropdown = form.createDropdown(`deajbizbv0-${currentY}`);
+			// 	dropdown.addOptions(["Approve", "Deny", "Pending"]); // Add dropdown options
+			// 	dropdown.select("Approve"); // Set default selected option
+
+			// 	// Add the dropdown to the page
+			// 	dropdown.addToPage(page, {
+			// 		x:
+			// 			textMargin +
+			// 			tableBody.columnWidths[0] +
+			// 			tableBody.columnWidths[1] +
+			// 			tableBody.columnWidths[2] +
+			// 			tableBody.columnWidths[3] +
+			// 			tableBody.columnWidths[4] +
+			// 			tableBody.columnWidths[5] +
+			// 			tableBody.columnWidths[6] +
+			// 			tableBody.columnWidths[7] +
+			// 			+5,
+			// 		y: currentY - 2,
+			// 		width: 70,
+			// 		height: 10,
+			// 	});
+			// }
 		}
 		currentY = maxY;
 		currentY -= tableMain.rowHeight;
