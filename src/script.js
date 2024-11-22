@@ -283,7 +283,6 @@ function generateData() {
 	//add terms to student's courses
 	//split inputBanner into lines
 	let splitBanner = inputBanner.split("\n");
-
 	let bannerCourseExtract = [[], [], []];
 	let i = 0;
 	let type = -1;
@@ -334,11 +333,15 @@ function generateData() {
 			if (
 				splitBanner[i].includes("LP" || "LP PN" || "LP DN" || "LP SS")
 			) {
+				credit = splitBanner[i + 2];
 				if (splitBanner[i] == "LP") {
 					type = 0;
 				} else if (splitBanner[i] == "LP PN") {
 					type = 1;
+				} else if (splitBanner[i] == "LP DN" && credit == "3.00") {
+					type = 2;
 				}
+
 				arr.push(splitBanner[i++]); //ext grade
 			} else {
 				continue;
@@ -353,6 +356,8 @@ function generateData() {
 
 		i++;
 	}
+
+	console.log(bannerCourseExtract);
 
 	//add terms to student's courses from bannerCourseExtract by comparing with student's courses
 	for (let i = 0; i < student.LP.approved.length; i++) {
